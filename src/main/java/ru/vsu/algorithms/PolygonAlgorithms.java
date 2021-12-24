@@ -33,7 +33,7 @@ public class PolygonAlgorithms {
             x += points.get(i).getX() * points.get(next).getY();
             y += points.get(i).getY() * points.get(next).getX();
         }
-        return Math.abs((x-y))/2;
+        return Math.abs(x-y)/2;
     }
 
     // проверка на то что выпуклый
@@ -82,8 +82,6 @@ public class PolygonAlgorithms {
         }
 
 
-
-
         public static <T extends ConvexPolygon> Polygon getIntersectionOfPolygons(T one, T two){
            return getSmth(one, two, point -> isInside(one, point), point -> isInside(two, point));
         }
@@ -97,6 +95,8 @@ public class PolygonAlgorithms {
             return getSmth(a, b,point -> isInside(a, point), point -> !isInside(b, point));
         }
 
+
+
         private static <T extends ConvexPolygon> Polygon getSmth(T a, T b, Predicate<Point> firstCondition, Predicate<Point> secondCondition){
             List<Point> clippedCorners = new ArrayList<>();
             List<Point> pointsOfA = a.getPoints();
@@ -106,7 +106,7 @@ public class PolygonAlgorithms {
                     .forEach(point -> addPoints(clippedCorners, List.of(point)));
             pointsOfA.stream()
                     .filter(secondCondition)
-                    .forEach(clippedCorners::add);
+                    .forEach(point -> addPoints(clippedCorners, List.of(point)));
             addIntersectionPoints(clippedCorners, a, b);
             return new Polygon(toClockwiseOrder(clippedCorners));
         }

@@ -44,7 +44,7 @@ public class PolygonAlgorithmsTest {
     @Test
     public void shouldReturnFalseOnConvexTest(){
         //add some bad point to polygon
-        List<Point> pointList = new ArrayList<>(List.of(new Point(5, 3), new Point(5, 10), new Point(12, 10), new Point(12, 3), new Point(17, 4)));
+        List<Point> pointList = List.of(new Point(5, 3), new Point(5, 10), new Point(12, 10), new Point(12, 3), new Point(17, 4));
         assertFalse(PolygonAlgorithms.isConvex(new Polygon(pointList)));
     }
 
